@@ -1,0 +1,38 @@
+.header{
+    height: 5rem;
+    width: 100%;
+    padding-top: 0.5rem 0 0.5rem 0;
+    position: sticky;
+    top: 0;
+    background-color: #15314B;
+    z-index: 100
+}
+
+.header__logo {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+}
+
+.header__logoImage {
+    height: 75%;
+    width: auto;
+    margin-right: 5px;
+    object-fit: contain;
+    animation: spin 3s linear infinite;
+}
+
+.header__title{
+    color: white;
+    font-weight: 700;
+    font-size: 18pt;
+    font-family: monospace;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+  }
