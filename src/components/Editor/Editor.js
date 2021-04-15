@@ -154,7 +154,7 @@ function Editor() {
             {
                 result ? 
                 <div    className="editor__status" >
-                    <p>MemoryUsage - {result.data.memoryUsage}</p>
+                    <p>Memory Usage - {result.data.memoryUsage}</p>
                     <p>CPU Usage - {result.data.cpuUsage}</p>
                 </div> : ""
             }
