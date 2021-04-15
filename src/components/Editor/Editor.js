@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './Editor.css'
 
 import AceEditor from 'react-ace'
@@ -27,14 +27,55 @@ function Editor() {
     const [wrap, setWrap] = useState(false)
     const [codeInput, setCodeInput] = useState("")
     const [codeOutput, setCodeOutput] = useState("")
+    const [error, setError] = useState(false)
+
+    const [runButtonDisable, setRunButtonDisable] = useState(false)
+
+    const [result, setResult] = useState(null)
+
+    const [runText, setRunText] = useState("Run")
 
     const onChange = (newValue) => {
         setCode(newValue)
     }
 
-    const run = () => {
+    const run = async (e) => {
+        e.preventDefault()
+
+        setRunButtonDisable(true)
+        setRunText("Running")
+
+        await API.post("/", {
+            code: code,
+            lang: mode,
+            input: codeInput
+        })
+            .then(result => {
+
+                setResult(result)
+
+                if (result.data.signal == null && result.data.exitCode == 0){
+
+                    document.getElementsByClassName("editor__output")[0].style.color = "lightgreen"
+
+                    setCodeOutput(result.data.stdout)
+                } else {
+
+                    document.getElementsByClassName("editor__output")[0].style.color = "red"
+
+                    setCodeOutput(result.data.signal + "\n" + result.data.errorType + " error\n\n" + result.data.stderr)
+
+                }
+
+                
+            })
+
+
+        setRunButtonDisable(false)
+        setRunText("Run")
 
     }
+
 
     const reset = () => {
         aceEditor.editor.setValue("")
@@ -46,7 +87,7 @@ function Editor() {
                 <select className="editor__modes" onChange={e => setMode(e.target.value)}>
 
                     {
-                        ['javascript'].map(lang => (
+                        ['javascript', 'c_cpp'].map(lang => (
                             <option value={lang} className="editor__selectOption">{lang}</option>
                         ))
                     }
@@ -102,18 +143,30 @@ function Editor() {
 
                 <div className="editor__console">
                     <textarea className="editor__input" placeholder="Add your input here, else program will run against default cases." onChange={e => setCodeInput(e.target.value)}/>
-                    <textarea className="editor__output" placeholder="Program Output" disabled
+                    <textarea className="editor__output" placeholder="Program Output" 
+
+                    disabled
                     value={codeOutput}/>
                 </div>
 
             </div>
 
+            {
+                result ? 
+                <div    className="editor__status" >
+                    <p>MemoryUsage - {result.data.memoryUsage}</p>
+                    <p>CPU Usage - {result.data.cpuUsage}</p>
+                </div> : ""
+            }
+
+            
+
             <div className="editor__buttons">
-                <button className="editor__submitButton" onClick={reset}>
+                <button className="editor__submitButton" onClick={reset} disabled={runButtonDisable}>
                     Reset
             </button>
-                <button className="editor__submitButton">
-                    Run
+                <button onClick={run} className="editor__submitButton" disabled = {runButtonDisable}>
+                {runText}
             </button>
             </div>
 
