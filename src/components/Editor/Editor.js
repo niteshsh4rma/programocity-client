@@ -11,6 +11,8 @@ import "ace-builds/src-noconflict/mode-javascript"
 import "ace-builds/src-noconflict/mode-python"
 import "ace-builds/src-noconflict/mode-c_cpp"
 
+import "ace-builds/src-noconflict/enableBasicAutocompletion"
+import "ace-builds/src-noconflict/enableLiveAutocompletion"
 
 import "ace-builds/src-noconflict/theme-monokai"
 import "ace-builds/src-noconflict/theme-xcode"
