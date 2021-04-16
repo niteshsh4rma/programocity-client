@@ -10,6 +10,7 @@
   flex-wrap: wrap;
   max-height: 29rem;
   flex: 0.6;
+  border-radius: 10px;
 }
 
 .editor__items {
@@ -51,6 +52,7 @@
   font-size: 13pt;
   border: 2px solid #15314B;
   color: white;
+  border-radius: 10px;
 }
 .editor__input{
   margin-bottom: 3%;
