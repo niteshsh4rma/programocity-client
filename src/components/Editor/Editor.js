@@ -40,11 +40,15 @@ function Editor() {
         setCode(newValue)
     }
 
+    
+    
+
     const run = async (e) => {
         e.preventDefault()
 
         setRunButtonDisable(true)
         setRunText("Running")
+
 
         await API.post("/", {
             code: code,
@@ -88,7 +92,7 @@ function Editor() {
                 <select className="editor__modes" onChange={e => setMode(e.target.value)}>
 
                     {
-                        ['javascript', 'c_cpp'].map(lang => (
+                        ["javascript", "c_cpp"].map(lang => (
                             <option value={lang} className="editor__selectOption">{lang}</option>
                         ))
                     }
