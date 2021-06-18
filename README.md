@@ -3,7 +3,6 @@
 Programocity is a web application for executing programs online.
 
 <img alt="node-current (tag)" src="https://img.shields.io/node/v/yarn/latest">
-<img alt="Programocity" src="https://img.shields.io/niteshsh4rma/programocity-client">
 <img alt="npm" src="https://img.shields.io/npm/v/npm">
 
 # Live
